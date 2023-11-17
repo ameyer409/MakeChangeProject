@@ -15,7 +15,7 @@ public class MakeChange {
 
 	public static void main(String[] args) {
 		Scanner kb = new Scanner(System.in);
-		double amount = 0.0, tendered = 0.0;
+		double amount = 0.0, tendered = 0.0, change = 0.0;
 		
 		//Part 1: The user is prompted asking for the price of the item.
 		System.out.print("What is the price of the item you wish to purchase: ");
@@ -31,8 +31,19 @@ public class MakeChange {
 		if (amount > tendered) {
 			System.out.println("That is not enough money for what you wish to purchase");
 		}
+		/*
+		 * Part 4: If the amount tendered is more than the cost of the item, 
+		 * display the number of bills and coins that should be given to the customer.
+		 */
+		else {
+			change = tendered - amount;
+			if (change > 20 && change % 20 != 0)
+				System.out.println("test");
+		}
+		
 		System.out.println(amount);
 		System.out.println(tendered);
+		System.out.println(change);
 		
 		kb.close();
 	}
