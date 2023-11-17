@@ -26,6 +26,11 @@ public class MakeChange {
 		System.out.print("What is the price of the item you wish to purchase: ");
 		tendered = kb.nextDouble();
 		
+		//Part 3: Display an appropriate message if the customer 
+		//	  	  provided too little money or the exact amount.
+		if (amount > tendered) {
+			System.out.println("That is not enough money for what you wish to purchase");
+		}
 		System.out.println(amount);
 		System.out.println(tendered);
 		
