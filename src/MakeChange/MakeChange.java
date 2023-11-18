@@ -40,60 +40,108 @@ public class MakeChange {
 		 */
 		else {
 			change = tendered - amount;
-			System.out.println(change);
 			// if (change > 20 && change % 20 != 0 || change == 20) {
-			if (change >= 40) {
+			if (change % 20 == 0 && change > 20) {
+				System.out.print((int) (change / 20) + " twenty dollar bills ");
+				change = change - ((int) (change / 20) * 20);
+			}
+			else if (change > 40) {
 				System.out.print((int) (change / 20) + " twenty dollar bills, ");
 				change = change - ((int) (change / 20) * 20);
 			}
-			else if (change >= 20){
+			else if (change > 20) {
 				System.out.print((int) (change / 20) + " twenty dollar bill, ");
 				change = change - ((int) (change / 20) * 20);
 			}
-			
-			if (change >= 10) {
+			else if (change == 20) {
+				System.out.print((int) (change / 20) + " twenty dollar bill ");
+				change = change - ((int) (change / 20) * 20);
+			}
+
+			if (change > 10) {
 				System.out.print((int) (change / 10) + " ten dollar bill, ");
 				change = change - ((int) (change / 10) * 10); // this could also just subtract ten, since this register
 																// can only ever give back 1 ten dollar bill
 			}
-			
-			if (change >= 5) {
+			else if (change == 10) {
+				System.out.print((int) (change / 10) + " ten dollar bill ");
+				change = change - ((int) (change / 10) * 10); // this could also just subtract ten, since this register
+				// can only ever give back 1 ten dollar bill
+			}
+
+			if (change > 5) {
 				System.out.print((int) (change / 5) + " five dollar bill, ");
 				change = change - ((int) (change / 5) * 5);
 			}
-			
-			if (change >= 2) {
+			else if (change == 5) {
+				System.out.print((int) (change / 5) + " five dollar bill ");
+				change = change - ((int) (change / 5) * 5);
+			}
+
+			if (change % 1 == 0 && change > 1) {
+				System.out.print((int) (change / 1) + " one dollar bills ");
+				change = change - ((int) change);
+			}
+			else if (change >= 2) {
 				System.out.print((int) (change / 1) + " one dollar bills, ");
 				change = change - ((int) change);
 			}
-			else if (change >=1) {
+			else if (change > 1) {
 				System.out.print((int) (change / 1) + " one dollar bill, ");
 				change = change - ((int) change);
 			}
-			
-			if (change >= .50) {
+			else if (change == 1) {
+				System.out.print((int) (change / 1) + " one dollar bill ");
+				change = change - ((int) change);
+			}
+
+			if (change == .75) {
+				System.out.print((int) (change / .25) + " quarters ");
+				change = fmod(change, 0.25);
+			}
+			else if (change > .50) {
 				System.out.print((int) (change / .25) + " quarters, ");
 				change = fmod(change, 0.25);
 			}
-			else if (change >= .25) {
+			else if (change == .50) {
+				System.out.print((int) (change / .25) + " quarters ");
+				change = fmod(change, 0.25);
+			}
+			else if (change > .25) {
 				System.out.print((int) (change / .25) + " quarter, ");
 				change = fmod(change, 0.25);
 			}
-			
-			if (change >= .20) {
+			else if (change == .25) {
+				System.out.print((int) (change / .25) + " quarter ");
+				change = fmod(change, 0.25);
+			}
+
+			if (change > .20) {
 				System.out.print((int) (change / .10) + " dimes, ");
 				change = fmod(change, 0.1);
 			}
-			else if (change >= .10) {
+			else if (change == .20) {
+				System.out.print((int) (change / .10) + " dimes ");
+				change = fmod(change, 0.1);
+			}
+			else if (change > .10) {
 				System.out.print((int) (change / .10) + " dime, ");
 				change = fmod(change, 0.1);
 			}
-			
-			if (change >= .05) {
+			else if (change == .10) {
+				System.out.print((int) (change / .10) + " dime ");
+				change = fmod(change, 0.1);
+			}
+
+			if (change > .05) {
 				System.out.print((int) (change / .05) + " nickel, ");
 				change = fmod(change, 0.05);
 			}
-			
+			if (change == .05) {
+				System.out.print((int) (change / .05) + " nickel ");
+				change = fmod(change, 0.05);
+			}
+
 			if (change >= .02) {
 				System.out.print((int) (change / .01) + " pennies");
 				change = fmod(change, 0.01);
