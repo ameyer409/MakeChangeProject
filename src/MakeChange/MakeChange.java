@@ -37,10 +37,21 @@ public class MakeChange {
 		/*
 		 * Part 4: If the amount tendered is more than the cost of the item, display the
 		 * number of bills and coins that should be given to the customer.
+		 * 
+		 * NOTE: The formatting got a bit complex when trying to determine whether a 
+		 * comma should print at the end of a calculation. For example, if the
+		 * change % 20 == 0 is true, then I don't want to print a comma, because
+		 * the change will only be in twenty dollar bills. However if it is false, then
+		 * I do want to print a comma before the next part of the result. similarly,
+		 * I needed to account for singular vs. plural, i.e. 2 twenty dollar bills vs.
+		 * 1 twenty dollar bill. I don't currently know of a good way to handle these
+		 * specific cases, so I ended up hard-coding each possibility. I know this is
+		 * not ideal and I hope to learn how to better handle this type of issue
+		 * in the future.
 		 */
 		else {
 			change = tendered - amount;
-			// if (change > 20 && change % 20 != 0 || change == 20) {
+			// various $20 bill cases
 			if (change % 20 == 0 && change > 20) {
 				System.out.print((int) (change / 20) + " twenty dollar bills ");
 				change = change - ((int) (change / 20) * 20);
@@ -57,7 +68,7 @@ public class MakeChange {
 				System.out.print((int) (change / 20) + " twenty dollar bill ");
 				change = change - ((int) (change / 20) * 20);
 			}
-
+			// various $10 bill cases
 			if (change > 10) {
 				System.out.print((int) (change / 10) + " ten dollar bill, ");
 				change = change - ((int) (change / 10) * 10); // this could also just subtract ten, since this register
@@ -68,7 +79,7 @@ public class MakeChange {
 				change = change - ((int) (change / 10) * 10); // this could also just subtract ten, since this register
 				// can only ever give back 1 ten dollar bill
 			}
-
+			// $5 bill cases
 			if (change > 5) {
 				System.out.print((int) (change / 5) + " five dollar bill, ");
 				change = change - ((int) (change / 5) * 5);
@@ -77,7 +88,7 @@ public class MakeChange {
 				System.out.print((int) (change / 5) + " five dollar bill ");
 				change = change - ((int) (change / 5) * 5);
 			}
-
+			// $1 bill cases
 			if (change % 1 == 0 && change > 1) {
 				System.out.print((int) (change / 1) + " one dollar bills ");
 				change = change - ((int) change);
@@ -94,7 +105,7 @@ public class MakeChange {
 				System.out.print((int) (change / 1) + " one dollar bill ");
 				change = change - ((int) change);
 			}
-
+			// 25 cent cases
 			if (change == .75) {
 				System.out.print((int) (change / .25) + " quarters ");
 				change = fmod(change, 0.25);
@@ -115,7 +126,7 @@ public class MakeChange {
 				System.out.print((int) (change / .25) + " quarter ");
 				change = fmod(change, 0.25);
 			}
-
+			// 10 cent cases
 			if (change > .20) {
 				System.out.print((int) (change / .10) + " dimes, ");
 				change = fmod(change, 0.1);
@@ -132,7 +143,7 @@ public class MakeChange {
 				System.out.print((int) (change / .10) + " dime ");
 				change = fmod(change, 0.1);
 			}
-
+			// 5 cent cases
 			if (change > .05) {
 				System.out.print((int) (change / .05) + " nickel, ");
 				change = fmod(change, 0.05);
@@ -141,7 +152,7 @@ public class MakeChange {
 				System.out.print((int) (change / .05) + " nickel ");
 				change = fmod(change, 0.05);
 			}
-
+			// 1 cent cases
 			if (change >= .02) {
 				System.out.print((int) (change / .01) + " pennies");
 				change = fmod(change, 0.01);
@@ -152,11 +163,22 @@ public class MakeChange {
 			}
 
 		}
-		// System.out.println(change);
 
 		kb.close();
 	}
 
+	/*
+	 * I ran into an issue when trying calculate the changes in cents. There are many
+	 * cases where subtracting two doubles doesn't give an accurate value due to the
+	 * limitations of storing decimals in binary. I found the Math.round() solution 
+	 * below through online searches. I'll note however that when trying to test all 
+	 * of the cases from 1.00 to 0.01 cents, I used a for loop and ran each option 
+	 * through this method, and it sometimes still had issues. so I acknowledge that 
+	 * while this method will work for the program as currently written, it is flawed.
+	 * I'm aware that BigDecimal exists and probably has a way to deal with this more
+	 * cleanly, but that was something we hadn't covered and I didn't feel comfortable
+	 * enough with trying to comb through the source material on it.  
+	 */
 	public static double fmod(double a, double b) {
 		double mod = a;
 		while (mod >= b) {
