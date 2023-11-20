@@ -30,9 +30,9 @@ public class RecursiveMakeChange {
 		if (change < 0) {
 			System.out.println("That is not enough money for what you wish to purchase");
 		}
-		/*
-		 * else if (change == 0) { System.out.println("Exact change!"); }
-		 */
+		else if (change == 0) {
+			System.out.println("Exact change!");
+		}
 		else {
 			System.out.println("amount: " + amount);
 			System.out.println("tendered: " + tendered);
@@ -45,20 +45,13 @@ public class RecursiveMakeChange {
 
 	public static void makeChange(double remainingMoney, double billSize) {
 		if (remainingMoney == 0) {
-//			System.out.println("done");
 			return;
 		}
 		else {
-//			System.out.print((int) (remainingMoney / billSize) + " twenty dollar bills ");
-//			System.out.println(remainingMoney + " " + billSize + " " + remainingMoney/billSize);
-//			System.out.println("before: " + remainingMoney);
 			printMethod(billSize, (int) (remainingMoney / billSize), fmod(remainingMoney, billSize));
-//			System.out.println("middle: " + remainingMoney);
 			remainingMoney = fmod(remainingMoney, billSize);
-//			System.out.println("after: " + remainingMoney);
 			billSize = nextBill(billSize);
 			makeChange(remainingMoney, billSize);
-			// change = change - ((int) (change / 20) * 20);
 		}
 	}
 
@@ -106,21 +99,21 @@ public class RecursiveMakeChange {
 			}
 			else if (billQuantity > 1) {
 				if (mod == 0) {
-					System.out.printf("%d %d dollar bills ", billQuantity, (int)billNum);
+					System.out.printf("%d %d dollar bills ", billQuantity, (int) billNum);
 					return;
 				}
 				else {
-					System.out.printf("%d %d dollar bills, ", billQuantity, (int)billNum);
+					System.out.printf("%d %d dollar bills, ", billQuantity, (int) billNum);
 					return;
 				}
 			}
 			else {
 				if (mod == 0) {
-					System.out.printf("%d %d dollar bill ", billQuantity, (int)billNum);
+					System.out.printf("%d %d dollar bill ", billQuantity, (int) billNum);
 					return;
 				}
 				else {
-					System.out.printf("%d %d dollar bill, ", billQuantity, (int)billNum);
+					System.out.printf("%d %d dollar bill, ", billQuantity, (int) billNum);
 				}
 			}
 		}
@@ -145,7 +138,6 @@ public class RecursiveMakeChange {
 				}
 				else {
 					System.out.printf("%d " + df.format(billNum) + " coin, ", billQuantity, billNum);
-					//System.out.printf("%d %f coin, ", billQuantity, billNum);
 					return;
 				}
 			}
