@@ -180,11 +180,12 @@ public class MakeChange {
 	 * enough with trying to comb through the source material on it.  
 	 */
 	public static double fmod(double a, double b) {
-		double mod = a;
+		double mod = Math.round(a * 100.0) / 100.0;
 		while (mod >= b) {
 			mod = mod - b;
 		}
-		return Math.round(mod * 100.0) / 100.0;
+		mod = Math.round(mod * 100.0) / 100.0;
+		return mod;
 	}
 
 }

@@ -4,6 +4,8 @@ hand at using recursion to see if I could get the logic to work. Currently, the 
 calculations are correct and the program will spit out the correct number of bills
 needed for change. The formatting is not complete however so the print statements look
 pretty disgusting.
+
+EDIT: math calculations are not all correct.
 */
 
 package MakeChange;
@@ -38,7 +40,6 @@ public class RecursiveMakeChange {
 			System.out.print("change: ");
 			makeChange(change, 20);
 		}
-
 		kb.close();
 
 	}
@@ -51,9 +52,11 @@ public class RecursiveMakeChange {
 		else {
 //			System.out.print((int) (remainingMoney / billSize) + " twenty dollar bills ");
 //			System.out.println(remainingMoney + " " + billSize + " " + remainingMoney/billSize);
-			printMethod(billSize, (int) (remainingMoney / billSize));
+//			System.out.println("before: " + remainingMoney);
+			printMethod(billSize, (int) (remainingMoney / billSize), fmod(remainingMoney, billSize));
+//			System.out.println("middle: " + remainingMoney);
 			remainingMoney = fmod(remainingMoney, billSize);
-			// System.out.println(remainingMoney);
+//			System.out.println("after: " + remainingMoney);
 			billSize = nextBill(billSize);
 			makeChange(remainingMoney, billSize);
 			// change = change - ((int) (change / 20) * 20);
@@ -61,16 +64,12 @@ public class RecursiveMakeChange {
 	}
 
 	public static double fmod(double a, double b) {
-		double mod = a;
-//		System.out.println("1st: " + mod);
+		double mod = Math.round(a * 100.0) / 100.0;
 		while (mod >= b) {
 			mod = mod - b;
 		}
-//		System.out.println("2nd: " + mod);
-		if (mod < 0.01) {
-			return 0;
-		}
-		return Math.round(mod * 100.0) / 100.0;
+		mod = Math.round(mod * 100.0) / 100.0;
+		return mod;
 	}
 
 	public static double nextBill(double bill) {
@@ -100,30 +99,44 @@ public class RecursiveMakeChange {
 		}
 	}
 
-	public static void printMethod(double billNum, int billQuantity) {
+	public static void printMethod(double billNum, int billQuantity, double mod) {
 		if (billNum >= 1) {
-			if (billQuantity > 1) {
-				System.out.printf("%d %f dollar bills, ", billQuantity, billNum);
+			if (billQuantity == 0) {
 				return;
 			}
-			else if (billQuantity == 0) {
-				return;
+			else if (billQuantity > 1) {
+				if (mod == 0) {
+					System.out.printf("%d %f dollar bills ", billQuantity, billNum);
+					return;
+				}
+				else {
+					System.out.printf("%d %f dollar bills, ", billQuantity, billNum);
+					return;
+				}
 			}
 			else {
-				System.out.printf("%d %f dollar bill, ", billQuantity, billNum);
-				return;
+				if (mod == 0) {
+					System.out.printf("%d %f dollar bill ", billQuantity, billNum);
+					return;
+				}
+				else {
+					System.out.printf("%d %f dollar bill ", billQuantity, billNum);
+				}
 			}
 		}
 		else {
-			if (billQuantity > 1) {
-				System.out.printf("%d %f dollar bills, ", billQuantity, billNum);
+			if (billQuantity == 0) {
 				return;
 			}
-			else if (billQuantity == 0) {
+			else if (billQuantity > 1) {
+				System.out.printf("%d %f cents, ", billQuantity, billNum);
 				return;
+			}
+			else if (mod == 0) {
+				System.out.printf("%d %f cents ", billQuantity, billNum);
 			}
 			else {
-				System.out.printf("%d %f dollar bill, ", billQuantity, billNum);
+				System.out.printf("%d %f cents, ", billQuantity, billNum);
 				return;
 			}
 		}
