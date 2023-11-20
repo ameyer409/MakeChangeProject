@@ -50,7 +50,7 @@ public class MakeChange {
 		 * in the future.
 		 */
 		else {
-			change = tendered - amount;
+			change = Math.round((tendered - amount) * 100.0) / 100.0;
 			// various $20 bill cases
 			if (change % 20 == 0 && change > 20) {
 				System.out.print((int) (change / 20) + " twenty dollar bills ");
