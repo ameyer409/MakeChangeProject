@@ -4,13 +4,12 @@ hand at using recursion to see if I could get the logic to work. Currently, the 
 calculations are correct and the program will spit out the correct number of bills
 needed for change. The formatting is not complete however so the print statements look
 pretty disgusting.
-
-EDIT: math calculations are not all correct.
 */
 
 package MakeChange;
 
 import java.util.Scanner;
+import java.text.*;
 
 public class RecursiveMakeChange {
 
@@ -100,27 +99,28 @@ public class RecursiveMakeChange {
 	}
 
 	public static void printMethod(double billNum, int billQuantity, double mod) {
+		DecimalFormat df = new DecimalFormat("#.##");
 		if (billNum >= 1) {
 			if (billQuantity == 0) {
 				return;
 			}
 			else if (billQuantity > 1) {
 				if (mod == 0) {
-					System.out.printf("%d %f dollar bills ", billQuantity, billNum);
+					System.out.printf("%d %d dollar bills ", billQuantity, (int)billNum);
 					return;
 				}
 				else {
-					System.out.printf("%d %f dollar bills, ", billQuantity, billNum);
+					System.out.printf("%d %d dollar bills, ", billQuantity, (int)billNum);
 					return;
 				}
 			}
 			else {
 				if (mod == 0) {
-					System.out.printf("%d %f dollar bill ", billQuantity, billNum);
+					System.out.printf("%d %d dollar bill ", billQuantity, (int)billNum);
 					return;
 				}
 				else {
-					System.out.printf("%d %f dollar bill ", billQuantity, billNum);
+					System.out.printf("%d %d dollar bill, ", billQuantity, (int)billNum);
 				}
 			}
 		}
@@ -129,15 +129,25 @@ public class RecursiveMakeChange {
 				return;
 			}
 			else if (billQuantity > 1) {
-				System.out.printf("%d %f cents, ", billQuantity, billNum);
-				return;
-			}
-			else if (mod == 0) {
-				System.out.printf("%d %f cents ", billQuantity, billNum);
+				if (mod == 0) {
+					System.out.printf("%d " + df.format(billNum) + " coins", billQuantity, billNum);
+					return;
+				}
+				else {
+					System.out.printf("%d " + df.format(billNum) + " coins, ", billQuantity, billNum);
+					return;
+				}
 			}
 			else {
-				System.out.printf("%d %f cents, ", billQuantity, billNum);
-				return;
+				if (mod == 0) {
+					System.out.printf("%d " + df.format(billNum) + " coin", billQuantity, billNum);
+					return;
+				}
+				else {
+					System.out.printf("%d " + df.format(billNum) + " coin, ", billQuantity, billNum);
+					//System.out.printf("%d %f coin, ", billQuantity, billNum);
+					return;
+				}
 			}
 		}
 	}
